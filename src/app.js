@@ -2,7 +2,7 @@ import express from "express"
 import cookieParser from "cookie-parser"
 import cors from "cors"
 
-const app = express()
+const app = express();
 
 app.use(cors({
     origin : process.env.CORS_ORIGIN,
@@ -14,6 +14,19 @@ app.use(express.json({limit : "16kb"}))
 app.use(express.urlencoded({extended : true , limit : "16kb"})) //extended se obj ke andsr bhi obj desakte hai ,
 app.use(express.static("public")) //static file f0lder store karne ke liye publuc assets anyone can assess
 app.use(cookieParser()) //cookies ke liye server me
+
+
+//routes import 
+import userRouter from "./routes/user.routes.js"
+
+
+//routes declaration
+//router ko laane ke liye middleware lana hoga
+
+app.use("/api/v1/users" , userRouter)
+
+
+//http://localhost:8000/api/v1/users/register
 
 
 
