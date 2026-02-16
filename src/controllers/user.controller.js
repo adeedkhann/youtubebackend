@@ -211,13 +211,13 @@ const changeCurrentPassword = asyncHandler(async(req , res)=>{
         validateBeforeSave:false
     })
 
-    return res.status(200),
-    json(new ApiResponse(200 , "Password Changed Succesfully"))
+    return res.status(200).
+    json(new ApiResponse(200 , {} ,"Password Changed Succesfully"))
 })
 
 const getCurrentUser = asyncHandler(async(req , res)=>{
     return res.status(200)
-    .json(200 , req.user , "current user fetched succeessfully")
+    .json(new ApiResponse(200 , req.user , "User fetched successfully"))
 })
 
 const updateAccountDetails = asyncHandler(async(req,res )=>{
@@ -227,7 +227,7 @@ const updateAccountDetails = asyncHandler(async(req,res )=>{
         throw new ApiError(401 , "all fields are required")
     }
 
-    User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set : {
@@ -267,7 +267,7 @@ const updateUserAvatar = asyncHandler(async(req , res)=>{
     return res.status(200)
     .json(new ApiResponse(200 ,user,  "avatar updated succesfully"))
 
-
+//delete old image by myself
 
 })
 const updateUserCoverImage = asyncHandler(async(req , res)=>{
